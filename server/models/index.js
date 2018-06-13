@@ -2,31 +2,28 @@ var database = require('../../database/index.js')
 var connection = database.connection;
 var Repo = database.Repo;
 
-
 let save = (dataToInsertInDB, callback) => {
-
 
   Repo.sync()
     .then(() => {
       // console.log('***********************')
       // console.log(dataToInsertInDB)
-      Repo.bulkCreate(dataToInsertInDB);
+      Repo.bulkCreate(dataToInsertInDB, () => {
+        updateOnDuplicate:["id"]
+      });
       callback('data added to the database successfully :] \n');
     })
     .catch(function(err) {
       callback(err);
     });
-}
+  }
 
 let query = (callback) => {
-
   Repo.sync()
   .then(function () {
-    Repo.findAll()
+    connection.query("SELECT * FROM `repos` ORDER BY stargazers_count DESC LIMIT 25;")
       .then((repos) => {
-        //console.log(JSON.stringify(repos))
-        // callback(JSON.stringify(repos))
-        callback(JSON.stringify(repos));
+        callback(JSON.stringify(repos[0]))
       });
   });
 }
