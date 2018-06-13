@@ -12,24 +12,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/repos', function (req, res) {
-    console.log('servers post route')
-    let username = req.body.username;
-    getReposByUsername(username, (err, repoInfo) => {
-      jRepoInfo = JSON.parse(repoInfo)
-      console.log(jRepoInfo)
-      models.save(jRepoInfo.items, (err) => {
-        console.log('ERR while saving: ', err)
-      })
-      res.send(jRepoInfo.items)
+  console.log('servers post route')
+  let username = req.body.username;
+  getReposByUsername(username, (err, repoInfo) => {
+    jRepoInfo = JSON.parse(repoInfo)
+    models.save(jRepoInfo.items, (err) => {
+      console.log('ERR while saving: ', err)
     })
-
+    res.send(jRepoInfo.items)
+  });
 });
 
 app.get('/repos', function (req, res) {
   console.log('servers  get route')
-  models.query(function(err, data) {
-    res.send(data)
-  })
+  models.query((data) => {
+    res.send(JSON.parse(data))
+  });
 });
 
 let port = 8899;

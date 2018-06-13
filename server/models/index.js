@@ -24,8 +24,9 @@ let query = (callback) => {
   .then(function () {
     Repo.findAll()
       .then((repos) => {
-        console.log(repos)
-        callback(JSON.parse(repos));
+        //console.log(JSON.stringify(repos))
+        // callback(JSON.stringify(repos))
+        callback(JSON.stringify(repos));
       });
   });
 }
