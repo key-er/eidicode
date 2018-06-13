@@ -12,7 +12,7 @@ var connection = new Sequelize('git', dbConfig.USER, dbConfig.PASSWD, {
 
 var Repo = connection.define('repos', {
   itemId: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
-  id: Sequelize.INTEGER,
+  id: {type: Sequelize.INTEGER, unique: true},
   full_name: Sequelize.STRING,
   login: Sequelize.STRING,
   stargazers_count:Sequelize.INTEGER,
