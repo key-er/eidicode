@@ -1,7 +1,15 @@
 const request = require('request');
 const config = require('../config.js');
 
-
+let createOptions = function(url) {
+  return {
+    url: url,
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': `token ${config.TOKEN}`
+    }
+  }
+}
 
 
 let getReposByUsername = (username, cb) => {
@@ -9,13 +17,8 @@ let getReposByUsername = (username, cb) => {
   // user from the github API
   // The options object has been provided to help you out,
   // but you'll have to fill in the URL
-  let options = {
-    url: 'https://api.github.com/search/repositories?q=user:' + username + '&sort=stars&order=desc&per_page=25&page=1',
-    headers: {
-      'User-Agent': 'request',
-      'Authorization': `token ${config.TOKEN}`
-    }
-  };
+
+  let options = createOptions ('https://api.github.com/search/repositories?q=user:' + username + '&sort=stars&order=desc&per_page=25&page=1')
 
   request(options, function(err, res, body) {
     if (err) cb(err, null);
