@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "body-parser": "^1.17.0",
+    "chart.js": "^2.7.2",
     "express": "^4.15.0",
     "jquery": "^3.1.1",
     "lodash": "^4.17.10",
@@ -25,6 +26,8 @@
     "mysql": "^2.15.0",
     "mysql2": "^1.5.3",
     "react": "^15.4.2",
+    "react-charts": "^1.0.10",
+    "react-d3-basic": "^1.6.11",
     "react-dom": "^15.4.2",
     "request": "^2.81.0",
     "sequelize": "^4.37.10"
