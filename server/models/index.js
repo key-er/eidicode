@@ -1,14 +1,13 @@
 var database = require('../../database/index.js')
 var connection = database.connection;
+var Search = database.Search;
 var Repo = database.Repo;
 
 let save = (dataToInsertInDB, callback) => {
 
-  Repo.sync()
+  Search.sync()
     .then(() => {
-      // console.log('***********************')
-      // console.log(dataToInsertInDB)
-      Repo.bulkCreate(dataToInsertInDB, () => {
+      Search.bulkCreate(dataToInsertInDB, () => {
         updateOnDuplicate:["id"]
       });
       callback('data added to the database successfully :] \n');
@@ -17,11 +16,10 @@ let save = (dataToInsertInDB, callback) => {
       callback(err);
     });
   }
-
 let query = (callback) => {
-  Repo.sync()
+  Search.sync()
   .then(function () {
-    connection.query("SELECT * FROM `repos` ORDER BY stargazers_count DESC LIMIT 25;")
+    connection.query("SELECT * FROM `users` ORDER BY stargazers_count DESC LIMIT 25;")
       .then((repos) => {
         callback(JSON.stringify(repos[0]))
       });

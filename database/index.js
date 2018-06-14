@@ -9,8 +9,8 @@ var connection = new Sequelize('git', dbConfig.USER, dbConfig.PASSWD, {
   dialect: 'mysql'
 });
 
-
-var Repo = connection.define('repos', {
+//define tables
+var Search = connection.define('user', {
   itemId: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
   id: {type: Sequelize.INTEGER, unique: true},
   full_name: Sequelize.STRING,
@@ -20,6 +20,21 @@ var Repo = connection.define('repos', {
   watchers_count: Sequelize.INTEGER,
   html_url: Sequelize.STRING,
 })
+
+
+var Repo = connection.define('traffic', {
+  itemId: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
+  id: {type: Sequelize.INTEGER, unique: true},
+  path: Sequelize.STRING,
+  count: Sequelize.STRING,
+  stargazers_count:Sequelize.INTEGER,
+  forks: Sequelize.INTEGER,
+  watchers_count: Sequelize.INTEGER,
+  html_url: Sequelize.STRING,
+})
+
+
+
 
 // create tables
 Repo.sync().then(function() {
@@ -42,6 +57,7 @@ Repo.sync().then(function() {
 
 
 module.exports.connection = connection;
+module.exports.Search = Search;
 module.exports.Repo = Repo;
 
 
